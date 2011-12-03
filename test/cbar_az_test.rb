@@ -66,7 +66,7 @@ class MoneyBankSourceCbarAzTest < MiniTest::Unit::TestCase
 private
 
   def data
-    @data ||= IO.read("fixtures/cbar_az.xml")
+    @data ||= IO.read(File.expand_path("../fixtures/cbar_az.xml", __FILE__))
   end
 
   def parsed_data
