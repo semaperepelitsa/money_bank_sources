@@ -1,1 +1,1 @@
-require "money/bank_sources/cbar_az"
+require "money/bank_sources/az_central_bank"

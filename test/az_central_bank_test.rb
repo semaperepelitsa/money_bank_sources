@@ -2,9 +2,9 @@ require "bundler/setup"
 require 'minitest/autorun'
 require 'money'
 $:.unshift(File.expand_path('../../lib', __FILE__))
-require "money/bank_sources/cbar_az"
+require "money/bank_sources/az_central_bank"
 
-class MoneyBankSourceCbarAzTest < MiniTest::Unit::TestCase
+class MoneyBankSourceAzCentralBankTest < MiniTest::Unit::TestCase
   include Money::BankSources
 
   def test_store_adds_direct_and_reverse_rates
@@ -17,7 +17,7 @@ class MoneyBankSourceCbarAzTest < MiniTest::Unit::TestCase
 
     bank.expect(:save!, true)
 
-    source = CbarAz.new(:bank => bank)
+    source = AzCentralBank.new(:bank => bank)
     def source.rates
       { "USD" => 2, "EUR" => 4 }
     end
@@ -28,7 +28,7 @@ class MoneyBankSourceCbarAzTest < MiniTest::Unit::TestCase
 
   def test_store_unknown_currency_silently
     bank = Money::Bank::VariableExchange.new
-    source = CbarAz.new(:bank => bank)
+    source = AzCentralBank.new(:bank => bank)
     def source.rates
       { "AAA" => 4 }
     end
@@ -37,36 +37,36 @@ class MoneyBankSourceCbarAzTest < MiniTest::Unit::TestCase
 
   def test_url
     date = Date.new(2011, 01, 02)
-    source = CbarAz.new(:date => date)
+    source = AzCentralBank.new(:date => date)
     assert_equal "http://cbar.az/currencies/02.01.2011.xml", source.url
   end
 
   def test_url_with_default_date
     date = Date.today
-    source = CbarAz.new
+    source = AzCentralBank.new
     assert_equal "http://cbar.az/currencies/#{date.strftime("%d.%m.%Y")}.xml", source.url
   end
 
   def test_parse
-    source = CbarAz.new(:data => data)
+    source = AzCentralBank.new(:data => data)
     assert_equal source, source.parse
     assert_equal parsed_data, source.rates
   end
 
   def test_parse_only
-    source = CbarAz.new(:only => "USD", :data => data)
+    source = AzCentralBank.new(:only => "USD", :data => data)
     assert_equal({ "USD" => parsed_data["USD"] }, source.parse.rates)
   end
 
   def test_only_multiple
-    source = CbarAz.new(:only => ["USD", "EUR"], :data => data)
+    source = AzCentralBank.new(:only => ["USD", "EUR"], :data => data)
     assert_equal({ "USD" => parsed_data["USD"], "EUR" => parsed_data["EUR"] }, source.parse.rates)
   end
 
 private
 
   def data
-    @data ||= IO.read(File.expand_path("../fixtures/cbar_az.xml", __FILE__))
+    @data ||= IO.read(File.expand_path("../fixtures/az_central_bank.xml", __FILE__))
   end
 
   def parsed_data

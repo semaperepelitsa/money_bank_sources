@@ -3,7 +3,7 @@ require "rexml/document"
 
 class Money
   module BankSources
-    class CbarAz
+    class AzCentralBank
       CODE_MAP = {
         # RUR is an old roubles code according to ISO 4217
         "RUR" => "RUB"
