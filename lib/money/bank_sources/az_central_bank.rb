@@ -4,13 +4,10 @@ require "rexml/document"
 class Money
   module BankSources
     class AzCentralBank
-      attr_reader :rates
-
       def initialize(options = {})
         @date = options[:date] || Date.today
         @bank = options[:bank] || Money.default_bank
         @data = options[:data]
-        @rates = {}
       end
 
       def parse
