@@ -5,4 +5,6 @@ namespace :bank_sources do
       Money::BankSources::AzCentralBank.new(:date => Time.zone.today).parse.store!
     end
   end
+
+  task :fetch => "az_central_bank:fetch"
 end
