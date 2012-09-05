@@ -53,16 +53,6 @@ class MoneyBankSourceAzCentralBankTest < MiniTest::Unit::TestCase
     assert_equal parsed_data, source.rates
   end
 
-  def test_parse_only
-    source = AzCentralBank.new(:only => "USD", :data => data)
-    assert_equal({ "USD" => parsed_data["USD"] }, source.parse.rates)
-  end
-
-  def test_only_multiple
-    source = AzCentralBank.new(:only => ["USD", "EUR"], :data => data)
-    assert_equal({ "USD" => parsed_data["USD"], "EUR" => parsed_data["EUR"] }, source.parse.rates)
-  end
-
 private
 
   def data

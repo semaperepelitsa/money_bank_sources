@@ -9,7 +9,6 @@ class Money
       def initialize(options = {})
         @date = options[:date] || Date.today
         @bank = options[:bank] || Money.default_bank
-        @only = options[:only] ? Array(options[:only]) : nil
         @data = options[:data]
         @rates = {}
       end
@@ -17,9 +16,6 @@ class Money
       def parse
         xml.elements.each("ValCurs/ValType/Valute") do |currency|
           code = currency.attributes["Code"]
-
-          next if skip_code?(code)
-
           rate = currency.elements["Value"].text.to_f
           rates[code] = rate
         end
@@ -52,10 +48,6 @@ class Money
 
       def xml
         @xml ||= REXML::Document.new(data)
-      end
-
-      def skip_code?(code)
-        @only && !@only.include?(code)
       end
     end
   end
