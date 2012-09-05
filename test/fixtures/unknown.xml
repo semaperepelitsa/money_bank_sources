@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValCurs Date="26.09.2011" Name="AZN məzənnələri" Description="Azərbaycan Respublikası Mərkəzi Bankının 26.09.2011 tarixdən etibarən xarici valyutaların və bank metallarının Azərbaycan manatına qarşı rəsmi məzənnələri bülleteni">
+  <ValType Type="Xarici valyutalar">
+    <Valute Code="SDR">
+      <Nominal>1</Nominal>
+      <Name>SDR (BVF-nun xüsusi borcalma hüquqları)</Name>
+      <Value>1.2269  </Value>
+    </Valute>
+  </ValType>
+</ValCurs>

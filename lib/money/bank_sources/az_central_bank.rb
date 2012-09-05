@@ -17,18 +17,12 @@ class Money
         xml.elements.each("ValCurs/ValType/Valute") do |currency|
           code = currency.attributes["Code"]
           rate = currency.elements["Value"].text.to_f
-          rates[code] = rate
+          add_rate code, rate
         end
         self
       end
 
       def store!
-        rates.each do |code, rate|
-          if Money::Currency.find(code)
-            @bank.add_rate(code, :azn, rate)
-            @bank.add_rate(:azn, code, 1.0/rate)
-          end
-        end
         @bank.save! if @bank.respond_to?(:save!)
       end
 
@@ -36,7 +30,13 @@ class Money
         @url ||= "http://cbar.az/currencies/#{formatted_date}.xml"
       end
 
-    private
+      private
+
+      def add_rate code, rate
+        @bank.add_rate(code, :azn, rate)
+        @bank.add_rate(:azn, code, 1.0/rate)
+      rescue Currency::UnknownCurrency
+      end
 
       def formatted_date
         @formatted_date ||= @date.strftime("%d.%m.%Y")
