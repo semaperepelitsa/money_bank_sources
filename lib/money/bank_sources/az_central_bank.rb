@@ -4,11 +4,6 @@ require "rexml/document"
 class Money
   module BankSources
     class AzCentralBank
-      CODE_MAP = {
-        # RUR is an old roubles code according to ISO 4217
-        "RUR" => "RUB"
-      }
-
       attr_reader :rates
 
       def initialize(options = {})
@@ -23,7 +18,6 @@ class Money
         xml.elements.each("ValCurs/ValType/Valute") do |currency|
           code = currency.attributes["Code"]
 
-          code = CODE_MAP.fetch(code, code)
           next if skip_code?(code)
 
           rate = currency.elements["Value"].text.to_f
