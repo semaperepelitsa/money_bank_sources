@@ -19,10 +19,6 @@ class Money
         self
       end
 
-      def store!
-        @bank.save! if @bank.respond_to?(:save!)
-      end
-
       def url
         @url ||= "http://cbar.az/currencies/#{formatted_date}.xml"
       end
