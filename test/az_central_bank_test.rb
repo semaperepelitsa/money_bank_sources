@@ -34,7 +34,7 @@ class MoneyBankSourceAzCentralBankTest < MiniTest::Unit::TestCase
   def test_url
     date = Date.new(2011, 01, 02)
     source = AzCentralBank.new(:date => date)
-    assert_equal "http://cbar.az/currencies/02.01.2011.xml", source.url
+    assert_equal "https://cbar.az/currencies/02.01.2011.xml", source.url
   end
 
   private

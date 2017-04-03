@@ -20,7 +20,7 @@ class Money
       end
 
       def url
-        @url ||= "http://cbar.az/currencies/#{formatted_date}.xml"
+        @url ||= "https://cbar.az/currencies/#{formatted_date}.xml"
       end
 
       private
