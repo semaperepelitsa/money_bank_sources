@@ -1,3 +1,7 @@
+0.1.1.
+
+* Use HTTPS endpoint for CBAR, HTTP is no longer supported.
+
 0.1.0.
 
 * Refactoring.
